@@ -30,14 +30,14 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QLabel" name="Thumbnail">
            <property name="minimumSize">
             <size>
-             <width>256</width>
-             <height>256</height>
+             <width>300</width>
+             <height>300</height>
             </size>
            </property>
            <property name="maximumSize">
@@ -54,19 +54,27 @@
         </layout>
        </item>
        <item row="2" column="0">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="View_num">
+           <property name="text">
+            <string>좋아요 수</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="Like_num">
+           <property name="text">
+            <string>조회수</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item row="1" column="0">
+       <item row="3" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <widget class="QPushButton" name="past_button">
@@ -90,6 +98,19 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="4" column="0">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>
