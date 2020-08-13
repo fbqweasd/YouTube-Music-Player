@@ -36,18 +36,21 @@
           <widget class="QLabel" name="Thumbnail">
            <property name="minimumSize">
             <size>
-             <width>300</width>
-             <height>300</height>
+             <width>480</width>
+             <height>360</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>256</width>
-             <height>256</height>
+             <width>400</width>
+             <height>400</height>
             </size>
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -121,14 +124,14 @@
          <item>
           <widget class="QPushButton" name="pushButton_2">
            <property name="text">
-            <string>PushButton</string>
+            <string>메뉴</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="AddButton">
+          <widget class="QPushButton" name="PlayListAddButton">
            <property name="text">
-            <string>추가</string>
+            <string>재생 목록 추가</string>
            </property>
           </widget>
          </item>
@@ -156,7 +159,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>383</width>
+            <width>286</width>
             <height>498</height>
            </rect>
           </property>
