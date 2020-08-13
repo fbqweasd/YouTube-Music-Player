@@ -1,5 +1,12 @@
 #include "youtube.h"
 
+/**
+ * @brief Get the youtube thumbnail url
+ * 
+ * @param code youtube play code
+ * @param output String ouput
+ */
+
 void get_youtube_thumbnail(QString code, QString *output){
 
     if(code.size()){
@@ -9,6 +16,28 @@ void get_youtube_thumbnail(QString code, QString *output){
 
     return;
 }
+
+/**
+ * @brief Get the youtube url
+ *
+ * @param code youtube play code
+ * @param output String ouput
+ */
+
+void get_youtube_url(QString code, QString *output){
+
+    if(!code.isNull()){
+        QTextStream(output) << "https://youtu.be/" << code;
+    }
+    return;
+}
+
+/**
+ * @brief url 에서 pixmap 데이터를 가지고 오는 함수, 내부적으로 동작
+ * 
+ * @param strAvatarUrl 불러올 url
+ * @param pixmap 반환받을 pixmap 값
+ */
 
 void LoadAvatar(QString strAvatarUrl, QPixmap *pixmap)
 {
@@ -32,16 +61,23 @@ void LoadAvatar(QString strAvatarUrl, QPixmap *pixmap)
   loop.exec();
 }
 
-void apply_Thumbnail(QString url, QLabel *thumbnail){
+/**
+ * @brief 유튜브 재생 코드를 인자 값으로 받아 라벨에 썸네일을 등록 하는 함수
+ * 
+ * @param code 유튜브 재생 코드
+ * @param thumbnail 등록할 라벨
+ */
+
+void apply_Thumbnail(QString code, QLabel *thumbnail){
 
     QString thumbnail_path;
     QPixmap *buffer;
 
-    get_youtube_thumbnail(QString(url), &thumbnail_path);
+    get_youtube_thumbnail(QString(code), &thumbnail_path); // code -> Thumbnail Url
 
     qDebug() << thumbnail_path;
 
-    buffer = new QPixmap();  //버퍼로 사용할 QPixmap 선언
+    buffer = new QPixmap();  
     LoadAvatar(thumbnail_path, buffer);
 
     *buffer = buffer->scaled(480, 360);
