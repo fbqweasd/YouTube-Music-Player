@@ -25,8 +25,8 @@ Widget::Widget(QWidget *parent)
     {
         *buffer = QPixmap::fromImage(*Img);   //이미지를 버퍼에 옮긴다.
 
-        //*buffer = buffer->scaledToWidth(ui->Thumbnail->width());
-        *buffer = buffer->scaledToHeight(ui->Thumbnail->height());
+        *buffer = buffer->scaledToWidth(Img->width());
+        //*buffer = buffer->scaledToHeight(Img->height());
 
         ui->Thumbnail->setPixmap(*buffer);
     }
@@ -45,5 +45,5 @@ Widget::~Widget()
 
 void Widget::on_PlayListAddButton_clicked()
 {
-    apply_Thumbnail("A018qr6KlgM", ui->Thumbnail);
+    apply_Thumbnail("NmY6wo3rEso", ui->Thumbnail);
 }

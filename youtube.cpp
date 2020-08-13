@@ -44,6 +44,7 @@ void apply_Thumbnail(QString url, QLabel *thumbnail){
     buffer = new QPixmap();  //버퍼로 사용할 QPixmap 선언
     LoadAvatar(thumbnail_path, buffer);
 
-    *buffer = buffer->scaledToHeight(thumbnail->height());
+    *buffer = buffer->scaled(480, 360);
+
     thumbnail->setPixmap(*buffer);
 }
