@@ -23,6 +23,7 @@ SOURCES += \
     youtube.cpp
 
 HEADERS += \
+    path.h \
     playlist_add_form.h \
     qdynamicbutton.h \
     widget.h \

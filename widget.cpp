@@ -9,6 +9,7 @@
 #include <QScrollArea>
 #include <QMessageBox>
 #include <QImage>
+#include "path.h"
 
 QImage *Img;
 QPixmap *buffer;
@@ -25,8 +26,11 @@ Widget::Widget(QWidget *parent)
 
     Img = new QImage();       //이미지를 로드하기 위한 QImage 선언
     buffer = new QPixmap();  //버퍼로 사용할 QPixmap 선언
+    QString defalt_img;
+    defalt_img = IMG_PATH;
+    defalt_img.append("Test_img_2.jpg");
 
-    if(Img->load(":\\Test_img\\Test_img_2.jpg"))      //이미지 로드
+    if(Img->load(defalt_img))      //이미지 로드
     {
         *buffer = QPixmap::fromImage(*Img);   //이미지를 버퍼에 옮긴다.
 
