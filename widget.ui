@@ -66,6 +66,16 @@
           </widget>
          </item>
          <item>
+          <widget class="QLabel" name="Play_name">
+           <property name="text">
+            <string>재생 음악</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="Like_num">
            <property name="text">
             <string>조회수</string>
@@ -160,7 +170,7 @@
             <x>0</x>
             <y>0</y>
             <width>383</width>
-            <height>498</height>
+            <height>495</height>
            </rect>
           </property>
          </widget>
