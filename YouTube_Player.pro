@@ -17,14 +17,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
+    playlist_add_form.cpp \
     widget.cpp \
     youtube.cpp
 
 HEADERS += \
+    playlist_add_form.h \
     widget.h \
     youtube.h
 
 FORMS += \
+    playlist_add_form.ui \
     widget.ui
 
 TRANSLATIONS += \
