@@ -9,6 +9,7 @@ QDynamicButton::QDynamicButton(QWidget *parent) :
 
 QDynamicButton::~QDynamicButton()
 {
+    ResID--;
 }
 
 int QDynamicButton::getID()

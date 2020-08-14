@@ -30,6 +30,7 @@ Widget::Widget(QWidget *parent)
     defalt_img = IMG_PATH;
     defalt_img.append("Test_img_2.jpg");
 
+
     if(Img->load(defalt_img))      //이미지 로드
     {
         *buffer = QPixmap::fromImage(*Img);   //이미지를 버퍼에 옮긴다.
@@ -56,9 +57,11 @@ void Widget::on_PlayListAddButton_clicked()
 {
     apply_Thumbnail("NmY6wo3rEso", ui->Thumbnail);
 
+
     if(!Form){
-        Form = new PlayList_Add_Form();
+        Form = new PlayList_Add_Form(NULL, ui->PlayList_Layout);
         Form->show();
+        Form = nullptr;
     }
 }
 
@@ -71,8 +74,4 @@ void Widget::on_pushButton_2_clicked()
     connect(button, SIGNAL(clicked()), this, SLOT(slotGetNumber()));
 }
 
-void Widget::slotGetNumber()
-{
-    QDynamicButton *button = (QDynamicButton*) sender();
-    ui->Play_name->setText(QString::number(button->getID()));
-}
+
