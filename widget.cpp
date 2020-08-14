@@ -3,6 +3,7 @@
 #include "youtube.h"
 
 #include "playlist_add_form.h"
+#include "qdynamicbutton.h"
 
 #include <QDebug>
 #include <QScrollArea>
@@ -55,4 +56,19 @@ void Widget::on_PlayListAddButton_clicked()
         Form = new PlayList_Add_Form();
         Form->show();
     }
+}
+
+void Widget::on_pushButton_2_clicked()
+{
+    QDynamicButton *button = new QDynamicButton(this);
+    button->setText("동적 생성 버튼 " + QString::number(button->getID()));
+    ui->PlayList_Layout->addWidget(button);
+
+    connect(button, SIGNAL(clicked()), this, SLOT(slotGetNumber()));
+}
+
+void Widget::slotGetNumber()
+{
+    QDynamicButton *button = (QDynamicButton*) sender();
+    ui->Play_name->setText(QString::number(button->getID()));
 }

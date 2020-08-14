@@ -16,9 +16,12 @@ public:
     ~Widget();
 
 private slots:
-    void on_AddButton_clicked();
 
     void on_PlayListAddButton_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void slotGetNumber();
 
 private:
     Ui::Widget *ui;

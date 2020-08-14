@@ -173,6 +173,11 @@
             <height>495</height>
            </rect>
           </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <layout class="QVBoxLayout" name="PlayList_Layout"/>
+           </item>
+          </layout>
          </widget>
         </widget>
        </item>

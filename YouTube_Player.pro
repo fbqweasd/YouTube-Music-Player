@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     playlist_add_form.cpp \
+    qdynamicbutton.cpp \
     widget.cpp \
     youtube.cpp
 
 HEADERS += \
     playlist_add_form.h \
+    qdynamicbutton.h \
     widget.h \
     youtube.h
 
