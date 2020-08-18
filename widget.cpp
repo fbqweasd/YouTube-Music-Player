@@ -57,9 +57,11 @@ void Widget::on_PlayListAddButton_clicked()
 {
     apply_Thumbnail("NmY6wo3rEso", ui->Thumbnail);
 
+    qDebug() << Form;
 
-    if(!Form){
-        Form = new PlayList_Add_Form(NULL, ui->PlayList_Layout);
+
+    if(!Form){ // Form은 여러 창이 뜨지 않도록 해주는 역할 수행, 소멸자에 Form 값을 넣을 수 없어서 정상동작 X
+        Form = new PlayList_Add_Form(NULL, ui->PlayList_Layout); // 새로운 버튼 생성
         Form->show();
         Form = nullptr;
     }

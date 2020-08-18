@@ -40,6 +40,7 @@ void PlayList_Add_Form::on_confirm_butten_clicked()
         return;
     }
 
+    button->PlayList.name = input;
     button->setText(input);
     Scroll->addWidget(button);
 
@@ -52,14 +53,14 @@ void PlayList_Add_Form::on_cancel_butten_clicked()
     this->close();
 }
 
-void PlayList_Add_Form::slotGetNumber()
+void PlayList_Add_Form::slotGetNumber() // 버튼 클릭시 반응
 {
     QDynamicButton *button = (QDynamicButton*) sender();
     //ui->Play_name->setText(QString::number(button->getID()));
     qDebug() << button->getID();
 
     if(!playlist_view){
-        playlist_view = new PlayList(NULL);
+        playlist_view = new PlayList(NULL, button);
         playlist_view->show();
         playlist_view = nullptr;
     }
