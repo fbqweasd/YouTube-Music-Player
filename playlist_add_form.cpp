@@ -6,9 +6,8 @@
 #include <QDebug>
 #include <QMessageBox>
 
-PlayList *playlist_view;
-
-QLayout *Scroll;
+static PlayList *playlist_view;
+static QLayout *Scroll;
 
 PlayList_Add_Form::PlayList_Add_Form(QWidget *parent, QLayout *Scroll_Layout) :
     QWidget(parent),
@@ -60,7 +59,7 @@ void PlayList_Add_Form::slotGetNumber() // 버튼 클릭시 반응
     qDebug() << button->getID();
 
     if(!playlist_view){
-        playlist_view = new PlayList(NULL, button);
+        playlist_view = new PlayList(NULL, button, Scroll, button->getID() - 1);
         playlist_view->show();
         playlist_view = nullptr;
     }
