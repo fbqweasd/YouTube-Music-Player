@@ -35,4 +35,18 @@ private:
     int buttonID = 0;
 };
 
+class PlayList_Button : public QPushButton{
+
+public:
+    PlayList_Button(QWidget *parent = 0);
+    ~PlayList_Button();
+
+    struct PlayList_Data Data;
+
+public slots:
+
+private:
+
+};
+
 #endif // QDYNAMICBUTTON_H

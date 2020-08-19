@@ -2,6 +2,7 @@
 #define PLAYLIST_ADD_FORM_H
 
 #include <QWidget>
+#include <qdynamicbutton.h>
 
 namespace Ui {
 class PlayList_Add_Form;
@@ -12,7 +13,7 @@ class PlayList_Add_Form : public QWidget
     Q_OBJECT
 
 public:
-    explicit PlayList_Add_Form(QWidget *parent = nullptr, QLayout *Scroll_Layout = NULL);
+    explicit PlayList_Add_Form(QWidget *parent = nullptr, QLayout *Scroll_Layout = nullptr);
     ~PlayList_Add_Form();
 
 private slots:

@@ -1,5 +1,7 @@
 #include "qdynamicbutton.h"
 
+int QDynamicButton::ResID = 0;
+
 QDynamicButton::QDynamicButton(QWidget *parent) :
     QPushButton(parent)
 {
@@ -16,5 +18,3 @@ int QDynamicButton::getID()
 {
     return buttonID;
 }
-
-int QDynamicButton::ResID = 0;
