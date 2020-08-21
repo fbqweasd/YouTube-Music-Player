@@ -18,3 +18,13 @@ int QDynamicButton::getID()
 {
     return buttonID;
 }
+
+PlayList_Button::PlayList_Button(QWidget *parent)
+    : QPushButton(parent)
+{
+    Data.name = nullptr;
+}
+
+PlayList_Button::~PlayList_Button(){
+
+}

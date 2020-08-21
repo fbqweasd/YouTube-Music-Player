@@ -13,7 +13,7 @@ class PlayList : public QWidget
     Q_OBJECT
 
 public:
-    explicit PlayList(QWidget *parent = nullptr, QDynamicButton *par_button = nullptr, QLayout *Scroll = nullptr, int num = -1);
+    explicit PlayList(QWidget *parent = nullptr, QDynamicButton *par_button = nullptr, int num = -1);
     ~PlayList();
 
 private slots:

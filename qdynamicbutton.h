@@ -4,11 +4,13 @@
 #include <QWidget>
 #include <QPushButton>
 
+class PlayList_Button;
+
 struct PlayList_Titie{
 
     QString name;
 
-    struct PlayList_Data *Data;
+    PlayList_Button *Data;
 };
 
 struct PlayList_Data{
@@ -17,7 +19,7 @@ struct PlayList_Data{
 
     QString YouTube_code;
 
-    struct PlayList_Data *next;
+    PlayList_Button *next;
 };
 
 class QDynamicButton : public QPushButton
@@ -35,18 +37,20 @@ private:
     int buttonID = 0;
 };
 
+
 class PlayList_Button : public QPushButton{
 
 public:
     PlayList_Button(QWidget *parent = 0);
     ~PlayList_Button();
 
-    struct PlayList_Data Data;
+    struct PlayList_Data Data; // 이름, 재생 목록등 저장용
 
 public slots:
 
 private:
 
 };
+
 
 #endif // QDYNAMICBUTTON_H

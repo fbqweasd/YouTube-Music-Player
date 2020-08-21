@@ -28,7 +28,7 @@
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
         </property>
-        <widget class="QWidget" name="PlayList_Layout">
+        <widget class="QWidget" name="ScrollWidget">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -37,7 +37,11 @@
            <height>383</height>
           </rect>
          </property>
-         <layout class="QGridLayout" name="gridLayout_3"/>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <layout class="QVBoxLayout" name="Scroll_Layout"/>
+          </item>
+         </layout>
         </widget>
        </widget>
       </item>
