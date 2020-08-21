@@ -1,8 +1,11 @@
 #include "playlist.h"
 #include "ui_playlist.h"
 
+#include "music_add.h"
+
 static QLayout *Scroll;
 static int current_num;
+static Music_Add *Music_From;
 
 PlayList::PlayList(QWidget *parent, QDynamicButton *par_button, QLayout *Scroll_Layout, int num) :
     QWidget(parent),
@@ -19,6 +22,8 @@ PlayList::PlayList(QWidget *parent, QDynamicButton *par_button, QLayout *Scroll_
 
         while(tmep){
             // 대충 버튼 추가하는 소스코드
+
+            tmep = tmep->next;
         }
     }
 }
@@ -31,6 +36,11 @@ PlayList::~PlayList()
 void PlayList::on_Play_Add_Button_clicked()
 {
     // 음악 목록을 추가하는 UI 띄우기
+    if(!Music_From){
+        Music_From = new Music_Add(NULL);
+        Music_From->show();
+        Music_From = nullptr;
+    }
 }
 
 void PlayList::on_Cancel_Button_clicked()
