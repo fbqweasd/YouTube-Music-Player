@@ -1,12 +1,14 @@
 #include "music_add.h"
 #include "ui_music_add.h"
 
+#include "youtube.h"
+
 #include <QMessageBox>
 #include <qdynamicbutton.h>
-#include <QDebug>
 
 struct QLayout *Scroll;
 struct QDynamicButton *PlayList;
+extern QLabel *Thumbnail;
 
 Music_Add::Music_Add(QWidget *parent,QDynamicButton *par_button, QLayout *Scroll_Layout) :
     QWidget(parent),
@@ -41,6 +43,8 @@ void Music_Add::on_Add_Button_clicked()
 
     button->Data.name = input_name;
     button->setText(input_name);
+
+    button->Data.YouTube_code = input_url;
     Scroll->addWidget(button);
 
     connect(button, SIGNAL(clicked()), this, SLOT(Music_Click_Listener()));
@@ -63,5 +67,6 @@ void Music_Add::on_Cancel_Button_clicked()
 
 void Music_Add::Music_Click_Listener()
 {
-
+    PlayList_Button *button = (PlayList_Button*) sender();
+    apply_Thumbnail(QString(button->Data.YouTube_code), Thumbnail);
 }

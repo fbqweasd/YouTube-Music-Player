@@ -13,6 +13,7 @@
 
 QImage *Img;
 QPixmap *buffer;
+QLabel *Thumbnail;
 
 PlayList_Add_Form *Form;
 
@@ -29,6 +30,7 @@ Widget::Widget(QWidget *parent)
     QString defalt_img;
     defalt_img = IMG_PATH;
     defalt_img.append("Test_img_2.jpg");
+    Thumbnail = ui->Thumbnail;
 
 
     if(Img->load(defalt_img))      //이미지 로드
@@ -55,7 +57,7 @@ Widget::~Widget()
 
 void Widget::on_PlayListAddButton_clicked()
 {
-    apply_Thumbnail("NmY6wo3rEso", ui->Thumbnail);
+    apply_Thumbnail("NmY6wo3rEso", Thumbnail);
 
     qDebug() << Form;
 
