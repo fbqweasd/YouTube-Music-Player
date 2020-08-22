@@ -3,6 +3,7 @@
 
 #include <QMessageBox>
 #include <qdynamicbutton.h>
+#include <QDebug>
 
 struct QLayout *Scroll;
 struct QDynamicButton *PlayList;
@@ -41,11 +42,17 @@ void Music_Add::on_Add_Button_clicked()
     button->Data.name = input_name;
     button->setText(input_name);
     Scroll->addWidget(button);
-    if(!PlayList->PlayList.Data){
-        PlayList->PlayList.Data = button;
-    }
 
     connect(button, SIGNAL(clicked()), this, SLOT(Music_Click_Listener()));
+
+    if(!PlayList->PlayList.Data){
+        PlayList->PlayList.Data = button;
+        PlayList->PlayList.Last_Data = button;
+    }
+    else{
+        PlayList->PlayList.Last_Data->Data.next = button;
+        PlayList->PlayList.Last_Data = button;
+    }
     this->close();
 }
 

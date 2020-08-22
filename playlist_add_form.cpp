@@ -40,6 +40,7 @@ void PlayList_Add_Form::on_confirm_butten_clicked()
     }
 
     button->PlayList.name = input;
+    button->PlayList.Data = nullptr;
     button->setText(input);
     Scroll->addWidget(button);
 

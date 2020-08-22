@@ -23,6 +23,7 @@ PlayList_Button::PlayList_Button(QWidget *parent)
     : QPushButton(parent)
 {
     Data.name = nullptr;
+    Data.next = nullptr;
 }
 
 PlayList_Button::~PlayList_Button(){

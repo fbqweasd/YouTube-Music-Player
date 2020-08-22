@@ -11,6 +11,7 @@ struct PlayList_Titie{
     QString name;
 
     PlayList_Button *Data;
+    PlayList_Button *Last_Data;
 };
 
 struct PlayList_Data{

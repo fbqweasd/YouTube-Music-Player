@@ -4,6 +4,8 @@
 #include "music_add.h"
 #include "qdynamicbutton.h"
 
+#include "QDebug"
+
 static QLayout *Scroll;
 static int current_num;
 static Music_Add *Music_From;
@@ -20,14 +22,16 @@ PlayList::PlayList(QWidget *parent, QDynamicButton *par_button, int num) :
     ui->groupBox->setTitle(par_button->PlayList.name + " PlayList");
     parent_Button = par_button;
 
-    if(!par_button->PlayList.Data){
+    if(par_button->PlayList.Data){
         //PlayList_Data *tmep = par_button->PlayList.Data;
         PlayList_Button *temp = par_button->PlayList.Data;
 
+        qDebug() << "List First " << temp;
         while(temp){
             // 대충 버튼 추가하는 소스코드
             Scroll->addWidget(temp);
             temp = temp->Data.next;
+            qDebug() << "temp : " << temp;
         }
     }
 }
