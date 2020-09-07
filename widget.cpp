@@ -9,11 +9,17 @@
 #include <QScrollArea>
 #include <QMessageBox>
 #include <QImage>
+#include <QtXml>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
+
 #include "path.h"
 
 QImage *Img;
 QPixmap *buffer;
 QLabel *Thumbnail;
+QMediaPlayer *player;
+QMediaPlaylist *playlist;
 
 PlayList_Add_Form *Form;
 
@@ -48,16 +54,41 @@ Widget::Widget(QWidget *parent)
         qDebug() << "Img load Error";
     }
 
+
+    ui->Like_num->setText("20");
+    qDebug() << ui->Like_num;
 }
 
 Widget::~Widget()
 {
+    QDynamicButton current_Button;
+    QLayoutItem *temp;
+    temp = ui->PlayList_Layout->takeAt(0);
+
+    //current_Button = QBu temp->widget();
+
+
     delete ui;
 }
 
 void Widget::on_PlayListAddButton_clicked()
 {
     apply_Thumbnail("NmY6wo3rEso", Thumbnail);
+
+    QString youtube_Link;
+    player = new QMediaPlayer;
+    playlist = new QMediaPlaylist(player);
+
+    get_youtube_url("NmY6wo3rEso", &youtube_Link);
+    qDebug() << youtube_Link;
+
+    playlist->addMedia(QUrl(youtube_Link));
+    //playlist->addMedia(QUrl("http://example.com/myfile2.mp3"));
+
+    playlist->setCurrentIndex(1);
+    player->setPlaylist(playlist);
+    player->setVolume(70);
+    player->play();
 
     qDebug() << Form;
 

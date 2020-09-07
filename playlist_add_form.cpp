@@ -60,7 +60,7 @@ void PlayList_Add_Form::slotGetNumber() // 버튼 클릭시 반응
     qDebug() << button->getID();
 
     if(!playlist_view){
-        playlist_view = new PlayList(NULL, button, button->getID() - 1);
+        playlist_view = new PlayList(NULL, button, button->getID(), Scroll);
         playlist_view->show();
         playlist_view = nullptr;
     }
