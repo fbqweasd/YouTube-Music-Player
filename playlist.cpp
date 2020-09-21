@@ -4,9 +4,11 @@
 #include "music_add.h"
 #include "qdynamicbutton.h"
 
-#include "QDebug"
+#include <QDebug>
+#include <QtXml>
 
 static QLayout *Scroll;
+static QLayout *Music_Scroll;
 static int current_num;
 static Music_Add *Music_From;
 struct QDynamicButton *parent_Button;
@@ -19,6 +21,7 @@ PlayList::PlayList(QWidget *parent, QDynamicButton *par_button, int num, QLayout
 
     //Scroll = ui->Scroll_Layout;
     Scroll = PlayList_Scroll;
+    Music_Scroll = ui->Scroll_Layout;
     current_num = --num;
     ui->groupBox->setTitle(par_button->PlayList.name + " PlayList");
     parent_Button = par_button;
@@ -39,6 +42,27 @@ PlayList::PlayList(QWidget *parent, QDynamicButton *par_button, int num, QLayout
 
 PlayList::~PlayList()
 {
+            qDebug() << "Delete Test";
+    // 데이터를 저장하는 기능
+    QFile file(parent_Button->PlayList.name);
+
+    if(!file.open(QIODevice::ReadOnly|QIODevice::Text))
+    {
+        qDebug() << "File is not open.";
+        delete ui;
+        return;
+    }
+
+    QDomDocument document;
+    if(!document.setContent(&file))
+    {
+        qDebug() << "File is not read";
+        delete ui;
+        return;
+    }
+    file.close();
+
+
     delete ui;
 }
 
@@ -46,7 +70,7 @@ void PlayList::on_Play_Add_Button_clicked()
 {
     // 음악 목록을 추가하는 UI 띄우기
     if(!Music_From){
-        Music_From = new Music_Add(NULL, parent_Button, Scroll);
+        Music_From = new Music_Add(NULL, parent_Button, Music_Scroll);
         Music_From->show();
         Music_From = nullptr;
     }
@@ -54,6 +78,21 @@ void PlayList::on_Play_Add_Button_clicked()
 
 void PlayList::on_Cancel_Button_clicked()
 {
+    QFile file(parent_Button->PlayList.name);
+
+    if(!file.open(QIODevice::ReadOnly|QIODevice::Text))
+    {
+        qDebug() << "File is not open.";
+
+    }
+
+    QDomDocument document;
+    if(!document.setContent(&file))
+    {
+        qDebug() << "File is not read";
+    }
+
+
     // 창닫는 기능 수행
     this->close();
 }
