@@ -23,13 +23,3 @@ qt 라이브러리를 이용하여 YouTube 음원 스트리밍 / 재생목록 �
 ![Thumbail](/Test_img/Thumbnail.jpg)
 
 ![All View](/Test_img/All_View.png)
-
-모든 레이아웃, 수정해야 할게 많이 보인다..
-
-## 남은 기능 
-
-* PlayList 구조체 생성 및 저장 기능 
-
-* YouTube 음성 정보 재생 기능
-
-* YouTube 주변 정보 파싱 기능
