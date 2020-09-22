@@ -42,26 +42,7 @@ PlayList::PlayList(QWidget *parent, QDynamicButton *par_button, int num, QLayout
 
 PlayList::~PlayList()
 {
-            qDebug() << "Delete Test";
-    // 데이터를 저장하는 기능
-    QFile file(parent_Button->PlayList.name);
-
-    if(!file.open(QIODevice::ReadOnly|QIODevice::Text))
-    {
-        qDebug() << "File is not open.";
-        delete ui;
-        return;
-    }
-
-    QDomDocument document;
-    if(!document.setContent(&file))
-    {
-        qDebug() << "File is not read";
-        delete ui;
-        return;
-    }
-    file.close();
-
+    qDebug() << "Delete Test";
 
     delete ui;
 }
@@ -78,19 +59,25 @@ void PlayList::on_Play_Add_Button_clicked()
 
 void PlayList::on_Cancel_Button_clicked()
 {
-    QFile file(parent_Button->PlayList.name);
+    QString ApplicationPath=QApplication::applicationDirPath();
+    qDebug() << ApplicationPath;
 
-    if(!file.open(QIODevice::ReadOnly|QIODevice::Text))
+    // 데이터를 저장하는 기능
+//    QDir Directory(ApplicationPath + "/save"); // 폴더 지정
+//    if(!Directory.exists()) {
+//        Directory.mkdir(ApplicationPath +"save");
+//    }
+
+    QFile file(ApplicationPath + "/save/" +parent_Button->PlayList.name + ".xml");
+    if(!file.open(QFile::WriteOnly | QFile::Text))
     {
         qDebug() << "File is not open.";
-
+        this->close();
     }
 
-    QDomDocument document;
-    if(!document.setContent(&file))
-    {
-        qDebug() << "File is not read";
-    }
+    // 여기에 PlayList 이름, 유튜브 링크를 가지고와서 XML로 저장 하는 기능만 있으면 끝
+
+    file.close();
 
 
     // 창닫는 기능 수행

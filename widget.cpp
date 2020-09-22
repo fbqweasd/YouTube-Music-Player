@@ -5,14 +5,6 @@
 #include "playlist_add_form.h"
 #include "qdynamicbutton.h"
 
-#include <QDebug>
-#include <QScrollArea>
-#include <QMessageBox>
-#include <QImage>
-#include <QtXml>
-#include <QMediaPlayer>
-#include <QMediaPlaylist>
-
 #include "path.h"
 
 QImage *Img;
@@ -22,6 +14,9 @@ QMediaPlayer *player;
 QMediaPlaylist *playlist;
 
 PlayList_Add_Form *Form;
+
+static inline qint32 ArrayToInt(QByteArray source);
+int apply_youtube(QString youtube_link);
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -54,9 +49,10 @@ Widget::Widget(QWidget *parent)
         qDebug() << "Img load Error";
     }
 
-
     ui->Like_num->setText("20");
     qDebug() << ui->Like_num;
+
+    tcpInit();
 }
 
 Widget::~Widget()
@@ -65,30 +61,12 @@ Widget::~Widget()
     QLayoutItem *temp;
     temp = ui->PlayList_Layout->takeAt(0);
 
-    //current_Button = QBu temp->widget();
-
-
     delete ui;
 }
 
 void Widget::on_PlayListAddButton_clicked()
 {
-    apply_Thumbnail("NmY6wo3rEso", Thumbnail);
-
-    QString youtube_Link;
-    player = new QMediaPlayer;
-    playlist = new QMediaPlaylist(player);
-
-    get_youtube_url("NmY6wo3rEso", &youtube_Link);
-    qDebug() << youtube_Link;
-
-    playlist->addMedia(QUrl(youtube_Link));
-    //playlist->addMedia(QUrl("http://example.com/myfile2.mp3"));
-
-    playlist->setCurrentIndex(1);
-    player->setPlaylist(playlist);
-    player->setVolume(70);
-    player->play();
+    apply_youtube("NmY6wo3rEso");
 
     qDebug() << Form;
 
@@ -109,4 +87,93 @@ void Widget::on_pushButton_2_clicked()
     connect(button, SIGNAL(clicked()), this, SLOT(slotGetNumber()));
 }
 
+void Widget::tcpInit()
+{
+    QHostAddress hostAddress;
+    QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
 
+    for(int i = 0; i < ipAddressesList.size(); ++i){
+        if(ipAddressesList.at(i) != QHostAddress::LocalHost && ipAddressesList.at(i).toIPv4Address()){
+            hostAddress = ipAddressesList.at(i);
+            break;
+        }
+    }
+
+    if(hostAddress.toString().isEmpty()){
+        hostAddress = QHostAddress(QHostAddress::LocalHost);
+    }
+
+    tcpServer = new QTcpServer(this);
+    if(!tcpServer->listen(hostAddress, 5656)){
+        qDebug() << "connet Failed";
+        close();
+    }
+    else {
+        qDebug() << "Tcp Server Open";
+    }
+    connect(tcpServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
+}
+
+void Widget::newConnection(){
+    qDebug() << "connet : " << con;
+
+    if(con == 0){
+        client = tcpServer->nextPendingConnection();
+        con++;
+
+        connect(client, SIGNAL(readyRead()), this, SLOT(readData()));
+        connect(client, SIGNAL(disconnected()), this, SLOT(disConnected()));
+        disconnect(tcpServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
+    }
+}
+
+void Widget::readData(){
+     QByteArray data;
+
+    if(client->bytesAvailable() >= 0){
+        data = client->readAll();
+    }
+
+    qDebug() << "Read data : " + data;
+}
+
+void Widget::disConnected(){
+    client->close();
+    --con;
+
+    if(con == 0){
+        connect(tcpServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
+    }
+}
+
+void Widget::sendValue(int temp, int hum, int dust, int human){
+    // 지금은 사용하지 않는 함수
+
+    QByteArray tempbyte = QByteArray::number(temp);
+    QByteArray humbyte = QByteArray::number(hum);
+    QByteArray dustbyte = QByteArray::number(dust);
+    QByteArray humanbyte = QByteArray::number(human);
+
+
+}
+
+int apply_youtube(QString youtube_link){
+    apply_Thumbnail(youtube_link, Thumbnail);
+
+    QString youtube_Link;
+    player = new QMediaPlayer;
+    playlist = new QMediaPlaylist(player);
+
+    get_youtube_url(youtube_link, &youtube_Link);
+    qDebug() << youtube_Link;
+
+    playlist->addMedia(QUrl(youtube_Link));
+    //playlist->addMedia(QUrl("http://example.com/myfile2.mp3"));
+
+    playlist->setCurrentIndex(1);
+    player->setPlaylist(playlist);
+    player->setVolume(70);
+    player->play();
+
+    return 0;
+}
