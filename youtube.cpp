@@ -27,7 +27,7 @@ void get_youtube_thumbnail(QString code, QString *output){
 void get_youtube_url(QString code, QString *output){
 
     if(!code.isNull()){
-        QTextStream(output) << "https://youtu.be/" << code;
+        QTextStream(output) << "https://www.youtube.com/embed/" << code;
     }
     return;
 }
@@ -74,7 +74,6 @@ void apply_Thumbnail(QString code, QLabel *thumbnail){
     QPixmap *buffer;
 
     get_youtube_thumbnail(QString(code), &thumbnail_path); // code -> Thumbnail Url
-
     qDebug() << thumbnail_path;
 
     buffer = new QPixmap();  
@@ -83,4 +82,15 @@ void apply_Thumbnail(QString code, QLabel *thumbnail){
     *buffer = buffer->scaled(480, 360);
 
     thumbnail->setPixmap(*buffer);
+}
+
+QString reg_youtube_link(QString YouTubeLink){
+    QString output;
+    QRegExp rx("https://youtu.be/([a-zA-Z0-9\\-_]+)");
+    rx.indexIn(YouTubeLink);
+    QStringList List = rx.capturedTexts();
+
+    foreach(output, List);
+
+    return output;
 }

@@ -23,11 +23,13 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
     void tcpInit();
+    int apply_youtube(QString youtube_link);
 
 private slots:
     void on_PlayListAddButton_clicked();
     void on_pushButton_2_clicked();
 
+    // TCP
     void newConnection();
     void readData();
     void disConnected();
@@ -37,6 +39,9 @@ private:
     Ui::Widget *ui;
     QTcpServer* tcpServer;
     QTcpSocket* client;
+
+//    struct Private;
+//    Private * d;
 
     int con;
 };

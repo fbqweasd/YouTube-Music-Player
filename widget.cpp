@@ -6,6 +6,17 @@
 #include "qdynamicbutton.h"
 
 #include "path.h"
+#include <cstring>
+#include <qregexp.h>
+
+//#include <Common.h>
+//#include <Instance.h>
+//#include <Media.h>
+//#include <MediaPlayer.h>
+
+#ifdef _WIN32
+      #include <windows.h>
+#endif
 
 QImage *Img;
 QPixmap *buffer;
@@ -15,8 +26,17 @@ QMediaPlaylist *playlist;
 
 PlayList_Add_Form *Form;
 
-static inline qint32 ArrayToInt(QByteArray source);
-int apply_youtube(QString youtube_link);
+//struct Widget::Private
+//{
+//    VlcInstance * vlcInstance;
+//    VlcMediaPlayer * vlcMediaPlayer;
+//    VlcMedia * vlcMedia;
+//};
+
+struct ReadTCP_Data{
+    uint8_t type;
+    char data[32];
+};
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -53,13 +73,22 @@ Widget::Widget(QWidget *parent)
     qDebug() << ui->Like_num;
 
     tcpInit();
+
+//    d = new Private();
+
+//    d->vlcMedia = 0;
+//    d->vlcInstance = new VlcInstance(VlcCommon::args(), this);
+//    d->vlcMediaPlayer = new VlcMediaPlayer(d->vlcInstance);
+
+//    connect(ui->stop_button, SIGNAL(clicked()), d->vlcMediaPlayer, SLOT(play()));
+
 }
 
 Widget::~Widget()
 {
-    QDynamicButton current_Button;
-    QLayoutItem *temp;
-    temp = ui->PlayList_Layout->takeAt(0);
+//    delete d->vlcInstance;
+//    delete d->vlcMediaPlayer;
+//    delete d->vlcMedia;
 
     delete ui;
 }
@@ -129,12 +158,45 @@ void Widget::newConnection(){
 
 void Widget::readData(){
      QByteArray data;
-
+     ReadTCP_Data Data;
+     QVariant var;
+     QString Code;
+     
     if(client->bytesAvailable() >= 0){
         data = client->readAll();
     }
 
-    qDebug() << "Read data : " + data;
+    Data.type = data[0];
+    std::memcpy(Data.data,data. mid(1,33) ,32);
+
+    switch (Data.type) {
+        case 1 :
+            qDebug("YouTube Link : %s", Data.data);
+            Code = reg_youtube_link(Data.data);
+            qDebug() << "Code : " << Code;
+            apply_youtube(Code);
+            break;
+
+        case 2 :
+            qDebug("AirCon Data : %s", Data.data);
+            break;
+
+        case 3 :
+            qDebug("Server Data : %s", Data.data);
+            break;
+
+        case 4 : // 시스템 관련 패킷
+            if(!strcmp(Data.data, "exit")){
+                #ifdef _WIN32
+                system("shutdown -s -t 1");
+                 #endif
+            }
+            break;
+        default:
+            break;
+    }
+
+    // type read
 }
 
 void Widget::disConnected(){
@@ -157,23 +219,31 @@ void Widget::sendValue(int temp, int hum, int dust, int human){
 
 }
 
-int apply_youtube(QString youtube_link){
+int Widget::apply_youtube(QString youtube_link){
     apply_Thumbnail(youtube_link, Thumbnail);
 
     QString youtube_Link;
     player = new QMediaPlayer;
     playlist = new QMediaPlaylist(player);
+    QNetworkRequest request;
 
     get_youtube_url(youtube_link, &youtube_Link);
     qDebug() << youtube_Link;
+    request.setUrl(youtube_Link);
 
-    playlist->addMedia(QUrl(youtube_Link));
+    playlist->addMedia(request);
     //playlist->addMedia(QUrl("http://example.com/myfile2.mp3"));
 
     playlist->setCurrentIndex(1);
     player->setPlaylist(playlist);
     player->setVolume(70);
     player->play();
+
+//    d->vlcMediaPlayer->stop();
+
+//    delete d->vlcMedia;
+//    d->vlcMedia = new VlcMedia(youtube_Link, d->vlcInstance);
+//    d->vlcMediaPlayer->open(d->vlcMedia);
 
     return 0;
 }
