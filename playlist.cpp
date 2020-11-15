@@ -19,8 +19,8 @@ PlayList::PlayList(QWidget *parent, QDynamicButton *par_button, int num, QLayout
 {
     ui->setupUi(this);
 
-    //Scroll = ui->Scroll_Layout;
-    Scroll = PlayList_Scroll;
+    Scroll = ui->Scroll_Layout;
+    //Scroll = PlayList_Scroll;
     Music_Scroll = ui->Scroll_Layout;
     current_num = --num;
     ui->groupBox->setTitle(par_button->PlayList.name + " PlayList");
@@ -78,7 +78,6 @@ void PlayList::on_Cancel_Button_clicked()
     // 여기에 PlayList 이름, 유튜브 링크를 가지고와서 XML로 저장 하는 기능만 있으면 끝
 
     file.close();
-
 
     // 창닫는 기능 수행
     this->close();

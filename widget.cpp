@@ -95,7 +95,7 @@ Widget::~Widget()
 
 void Widget::on_PlayListAddButton_clicked()
 {
-    apply_youtube("NmY6wo3rEso");
+    //apply_youtube("NmY6wo3rEso");
 
     qDebug() << Form;
 
@@ -219,31 +219,27 @@ void Widget::sendValue(int temp, int hum, int dust, int human){
 
 }
 
-int Widget::apply_youtube(QString youtube_link){
-    apply_Thumbnail(youtube_link, Thumbnail);
+int Widget::apply_youtube(QString youtube_link_arg){
 
     QString youtube_Link;
     player = new QMediaPlayer;
     playlist = new QMediaPlaylist(player);
-    QNetworkRequest request;
+ //   QNetworkRequest request;
 
-    get_youtube_url(youtube_link, &youtube_Link);
+    apply_Thumbnail(youtube_link_arg, Thumbnail);
+    get_youtube_url(youtube_link_arg, &youtube_Link);
+
     qDebug() << youtube_Link;
-    request.setUrl(youtube_Link);
+    qDebug() << youtube_link_arg;
 
-    playlist->addMedia(request);
-    //playlist->addMedia(QUrl("http://example.com/myfile2.mp3"));
+ //  request.setUrl(youtube_Link);
 
-    playlist->setCurrentIndex(1);
-    player->setPlaylist(playlist);
-    player->setVolume(70);
-    player->play();
+//    playlist->addMedia(request);
 
-//    d->vlcMediaPlayer->stop();
-
-//    delete d->vlcMedia;
-//    d->vlcMedia = new VlcMedia(youtube_Link, d->vlcInstance);
-//    d->vlcMediaPlayer->open(d->vlcMedia);
+//    playlist->setCurrentIndex(1);
+//    player->setPlaylist(playlist);
+//    player->setVolume(70);
+//    player->play();
 
     return 0;
 }

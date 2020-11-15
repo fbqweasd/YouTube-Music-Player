@@ -44,12 +44,21 @@ void Music_Add::on_Add_Button_clicked()
     button->Data.name = input_name;
     button->setText(input_name);
 
-    button->Data.YouTube_code = input_url;
-    Scroll->addWidget(button);
+    {// url 저장
+        QString temp_string = input_url.left(17);
+        qDebug() << "url test " + temp_string;
+
+        if(temp_string == "https://youtu.be/"){
+            button->Data.YouTube_code = reg_youtube_link(input_url);
+        }else{
+            button->Data.YouTube_code = input_url;
+        }
+        Scroll->addWidget(button);
+    }
 
     connect(button, SIGNAL(clicked()), this, SLOT(Music_Click_Listener()));
 
-    if(!PlayList->PlayList.Data){
+    if(!PlayList->PlayList.Data){ // 데이터 삽입
         PlayList->PlayList.Data = button;
         PlayList->PlayList.Last_Data = button;
     }
