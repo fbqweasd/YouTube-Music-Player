@@ -50,7 +50,8 @@ Widget::Widget(QWidget *parent)
     buffer = new QPixmap();  //버퍼로 사용할 QPixmap 선언
     QString defalt_img;
     defalt_img = IMG_PATH;
-    defalt_img.append("Test_img_2.jpg");
+    defalt_img.append("default_img.png");
+    qDebug() << defalt_img;
     Thumbnail = ui->Thumbnail;
 
 

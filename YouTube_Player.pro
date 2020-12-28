@@ -46,11 +46,6 @@ TRANSLATIONS += \
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
-#!isEmpty(target.path): INSTALLS += target
 
-#INCLUDEPATH += D:/Qt/vlc_32/include/VLCQtCore
-#DEPENDPATH += D:/Qt/vlc_32/include/VLCQtCore
-#DEPENDPATH += D:/Qt/vlc_32/lib
-
-#LIBS += -L D:/Qt/vlc_32/bin/
-#LIBS += -lvlc
+DISTFILES += \
+    Img/default_img.png
