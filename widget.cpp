@@ -9,11 +9,6 @@
 #include <cstring>
 #include <qregexp.h>
 
-//#include <Common.h>
-//#include <Instance.h>
-//#include <Media.h>
-//#include <MediaPlayer.h>
-
 #ifdef _WIN32
       #include <windows.h>
 #endif
@@ -25,13 +20,6 @@ QMediaPlayer *player;
 QMediaPlaylist *playlist;
 
 PlayList_Add_Form *Form;
-
-//struct Widget::Private
-//{
-//    VlcInstance * vlcInstance;
-//    VlcMediaPlayer * vlcMediaPlayer;
-//    VlcMedia * vlcMedia;
-//};
 
 struct ReadTCP_Data{
     uint8_t type;
@@ -74,23 +62,10 @@ Widget::Widget(QWidget *parent)
     qDebug() << ui->Like_num;
 
     tcpInit();
-
-//    d = new Private();
-
-//    d->vlcMedia = 0;
-//    d->vlcInstance = new VlcInstance(VlcCommon::args(), this);
-//    d->vlcMediaPlayer = new VlcMediaPlayer(d->vlcInstance);
-
-//    connect(ui->stop_button, SIGNAL(clicked()), d->vlcMediaPlayer, SLOT(play()));
-
 }
 
 Widget::~Widget()
 {
-//    delete d->vlcInstance;
-//    delete d->vlcMediaPlayer;
-//    delete d->vlcMedia;
-
     delete ui;
 }
 
@@ -225,22 +200,12 @@ int Widget::apply_youtube(QString youtube_link_arg){
     QString youtube_Link;
     player = new QMediaPlayer;
     playlist = new QMediaPlaylist(player);
- //   QNetworkRequest request;
 
     apply_Thumbnail(youtube_link_arg, Thumbnail);
     get_youtube_url(youtube_link_arg, &youtube_Link);
 
     qDebug() << youtube_Link;
     qDebug() << youtube_link_arg;
-
- //  request.setUrl(youtube_Link);
-
-//    playlist->addMedia(request);
-
-//    playlist->setCurrentIndex(1);
-//    player->setPlaylist(playlist);
-//    player->setVolume(70);
-//    player->play();
 
     return 0;
 }
